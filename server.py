@@ -2,6 +2,8 @@ import sys
 import os
 import cv2
 import numpy as np
+import matplotlib
+matplotlib.use('Agg') 
 import matplotlib.pyplot as plt
 from scipy.signal import butter, filtfilt, find_peaks
 from flask import Flask, request, jsonify, send_from_directory
@@ -14,10 +16,12 @@ import heartpy as hp
 
 app = Flask(__name__)
 
+app.config['MAX_CONTENT_LENGTH'] = 100 * 1024 * 1024
 # Configuration
-UPLOAD_FOLDER = tempfile.mkdtemp()
-OUTPUT_FOLDER = tempfile.mkdtemp()
-ALLOWED_EXTENSIONS = {'mp4', 'mov', 'avi'}
+UPLOAD_FOLDER = os.path.join(os.getcwd(), "uploads")
+OUTPUT_FOLDER = os.path.join(os.getcwd(), "static")
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+os.makedirs(OUTPUT_FOLDER, exist_ok=True)
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['OUTPUT_FOLDER'] = OUTPUT_FOLDER
