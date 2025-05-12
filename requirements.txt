@@ -7,3 +7,4 @@ noisereduce==2.0.1  # Last version supporting Python 3.9
 heartpy==1.2.7
 gunicorn==20.1.0
 python-dotenv==1.0.0
+waitress
